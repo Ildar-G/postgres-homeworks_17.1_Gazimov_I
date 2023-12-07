@@ -44,3 +44,10 @@ ORDER by company_name
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
+
+SELECT product_name
+FROM products pd
+WHERE EXISTS
+	(SELECT 1
+	 FROM order_details od
+	 WHERE pd.product_id = od.product_id AND quantity = 10)
