@@ -1,6 +1,7 @@
 -- Напишите запросы, которые выводят следующую информацию:
 -- 1. Название компании заказчика (company_name из табл. customers) и ФИО сотрудника, работающего над заказом этой компании (см таблицу employees),
 -- когда и заказчик и сотрудник зарегистрированы в городе London, а доставку заказа ведет компания United Package (company_name в табл shippers)
+
 SELECT
 	customers.company_name AS customer,
 	CONCAT(first_name, ' ', last_name) AS full_name
@@ -18,6 +19,16 @@ WHERE
 -- которые не сняты с продажи (поле discontinued) и которых меньше 25 и которые в категориях Dairy Products и Condiments.
 -- Отсортировать результат по возрастанию количества оставшегося товара.
 
+SELECT
+	product_name, units_in_stock, contact_name, phone
+FROM products
+JOIN suppliers USING(supplier_id)
+JOIN categories USING(category_id)
+WHERE
+	discontinued = 0
+	AND units_in_stock <= 25
+	AND category_name IN ('Dairy Products', 'Condiments')
+ORDER BY units_in_stock
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
 
